@@ -13,14 +13,16 @@ router.post("/submit", upload.single("image"), async (req, res) => {
   try {
     const formData = req.body;
 
+    const university = formData.university === 'new' ? formData.newUniversity : formData.university;
+
     const formEntry = new FormModel({
-      code:formData.code,
+      code: formData.code,
       name: formData.name,
       phoneNumber: formData.phoneNumber,
       dob: formData.dob,
       gender: formData.gender,
       district: formData.district,
-      university: formData.university,
+      university: university, 
       pincode: formData.pincode,
       image: req.file.buffer.toString("base64"), 
     });
