@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 
 const corsOptions = {
-  origin: 'https://ap-warrior.onrender.com', 
+  origin: 'http://localhost:3000', 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, 
   optionsSuccessStatus: 204,
