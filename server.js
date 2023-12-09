@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -8,7 +10,15 @@ const config = require("./config");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://ap-warrior.onrender.com', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, 
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.json({ limit: '10mb' }));
 
@@ -17,7 +27,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
 
 app.use('/api', userRoutes);
 
