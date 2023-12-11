@@ -9,18 +9,27 @@ const config = require("./config");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// const corsOptions = {
-//   origin: process.env.CORS_ORIGIN,
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+app.use(
+  cors({
+    origin: config.corsOrigin,
+    credentials: true,
+  })
+);
 
-app.use(cors());
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", config.corsOrigin);
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Expose-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Access-Control-Allow-Origin, Access-Control-Expose-Headers"
+  );
+  next();
+});
 app.use(bodyParser.json());
 app.use(express.json({ limit: "10mb" }));
 
-console.log(process.env.MONGODB_URI, "aefafaf");
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
