@@ -42,7 +42,9 @@ const formSchema = new mongoose.Schema({
       type: String,
     },
   },
-});
+},
+{ timestamps: true }
+);
 
 const FormModel = mongoose.model("Form", formSchema);
 
